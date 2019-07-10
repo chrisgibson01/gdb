@@ -7,11 +7,16 @@ register_libstdcxx_printers(None)
 
 class BigIntPP(object):
     def __init__(self, val):
-        self.val = val
+        self._val = val
 
     def to_string(self):
-        return 'BigIntPP::to_string cjg'
-        #return self.val['_M_dataplus']['_M_p']
+        #call_string = 'call ' + self._val.name + '.c_str()' <- what is name of variable?
+        #return call_string
+        #return execute(call_string) 
+
+        eval_string = "(*("+str(self._val.type)+"*)("+str(self._val.address)+")).c_str()"
+        #return eval_string
+        return gdb.parse_and_eval(eval_string)
 
     def display_hint(self):
         return 'BigIntPP::display_hint cjg'
