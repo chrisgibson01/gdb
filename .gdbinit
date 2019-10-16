@@ -10,6 +10,9 @@ class BigIntPP(object):
         self._val = val
 
     def to_string(self):
+        if not self._val.address:
+           return "bint(nullptr)"
+
         eval_string = "bsv::to_string(*" + str(self._val.address) + ")"
         return gdb.parse_and_eval(eval_string)
 
@@ -27,16 +30,14 @@ import gdb.printing
 def build_pretty_printer():
     pp = gdb.printing.RegexpCollectionPrettyPrinter("BigIntPP")
     pp.add_printer('bint', 'bint', BigIntPP)
-    #pp.add_printer('word-list', 'word_list', prettybash.WordListPrinter)
     return pp
 
 gdb.printing.register_pretty_printer(gdb.current_objfile(),
                                      build_pretty_printer())
-
-
-
 end
 
+# print symbol off required for pretty-printer gdb.parse_and_eval(..) simplification
+set print symbol off 
 set print pretty on
 
 set pagination off
