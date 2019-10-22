@@ -25,12 +25,34 @@ class BigIntPP(object):
         else:
             return None
 
+class CScriptPP(object):
+    def __init__(self, val):
+        self._val = val
+
+    def to_string(self):
+        if not self._val.address:
+           return "CScript(nullptr)"
+
+        eval_string = "to_string(*" + str(self._val.address) + ")"
+        return gdb.parse_and_eval(eval_string)
+
+    def display_hint(self):
+        return 'string'
+
+    def lookup_type(val):
+        if str(val.type) == 'CScript':
+            return CScriptPP(val)
+        else:
+            return None
+
 import gdb.printing
 
 def build_pretty_printer():
-    pp = gdb.printing.RegexpCollectionPrettyPrinter("BigIntPP")
+    pp = gdb.printing.RegexpCollectionPrettyPrinter("bsv")
     pp.add_printer('bint', 'bint', BigIntPP)
+    pp.add_printer('CScript', 'CScript', CScriptPP)
     return pp
+
 
 gdb.printing.register_pretty_printer(gdb.current_objfile(),
                                      build_pretty_printer())
