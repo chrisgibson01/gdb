@@ -1,9 +1,9 @@
 python
 import sys
 
-#sys.path.insert(0, '/root/gdb_printers/c++')
-#from libstdcxx.v6.printers import register_libstdcxx_printers
-#register_libstdcxx_printers(None)
+sys.path.insert(0, '/root/gdb_printers/c++')
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers(None)
 
 sys.path.insert(0, '/root/gdb_printers/bsv')
 #from printers import register_bsv_printers
@@ -19,6 +19,7 @@ end
 # print symbol off required for pretty-printer gdb.parse_and_eval(..) simplification
 set print symbol off 
 set print pretty on
+set print static-members off
 
 set confirm off
 
@@ -29,3 +30,5 @@ set history expansion on
 set history filename ~/.gdbhistory
 
 set output-radix 16
+
+set pagination off
