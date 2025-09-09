@@ -28,16 +28,19 @@ set print static-members off
 
 set confirm off
 set pagination off
-#set output-radix 16
+set output-radix 16
 
 set history save on
 set history expansion on
 
 set directories ~/sv/src
 
-#skip -gfi /usr/include/boost/**/*.hpp # doesn't work
+skip -gfi /usr/local/include/boost/test/utils/basic_cstring/*.hpp
+skip -gfi /usr/local/include/boost/test/utils/*.hpp
 skip -gfi /usr/include/boost/test/utils/basic_cstring/*.hpp
 skip -gfi /usr/include/boost/test/utils/*.hpp
-skip -gfi /usr/include/c++/9/bits/*.h
-#skip -gfi /usr/include/boost/test/utils/basic_cstring/basic_cstring.hpp
+skip -gfi /usr/include/c++/12/*
+skip -gfi /usr/include/c++/12/bits/*.h
+skip -gfi /usr/include/c++/13/*
+skip -gfi /usr/include/c++/13/bits/*.h
 
